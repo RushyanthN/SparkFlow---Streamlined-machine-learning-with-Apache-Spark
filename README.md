@@ -14,7 +14,7 @@ A comprehensive Apache Spark Machine Learning project demonstrating various ML a
 - [Algorithms Implemented](#algorithms-implemented)
 - [Results](#results)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## 🔍 Overview
 
