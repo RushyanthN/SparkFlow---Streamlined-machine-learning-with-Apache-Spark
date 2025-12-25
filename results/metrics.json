@@ -1,0 +1,326 @@
+{
+  "runs": [
+    {
+      "timestamp": "2025-12-25T02:47:23.520328",
+      "tasks": {
+        "classification": {
+          "task": "classification",
+          "model": "LogisticRegression",
+          "num_samples": 100,
+          "train_samples": 83,
+          "test_samples": 17,
+          "max_iter": 100,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "auc_roc": 1.0,
+          "load_time_sec": 16.179,
+          "train_time_sec": 7.454
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T02:49:16.402816",
+      "tasks": {
+        "regression": {
+          "task": "regression",
+          "model": "LinearRegression",
+          "num_samples": 100,
+          "train_samples": 83,
+          "test_samples": 17,
+          "num_features": 692,
+          "max_iter": 100,
+          "mse": 0.0679,
+          "rmse": 0.2606,
+          "mae": 0.1733,
+          "r2": 0.7274,
+          "intercept": 0.7014,
+          "coefficients_sample": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "load_time_sec": 8.976,
+          "train_time_sec": 5.014
+        },
+        "classification": {
+          "task": "classification",
+          "model": "LogisticRegression",
+          "num_samples": 100,
+          "train_samples": 83,
+          "test_samples": 17,
+          "max_iter": 100,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "auc_roc": 1.0,
+          "load_time_sec": 0.521,
+          "train_time_sec": 2.959
+        },
+        "clustering": {
+          "task": "clustering",
+          "model": "KMeans",
+          "num_samples": 6,
+          "k_values_tested": [
+            2,
+            3
+          ],
+          "best_k": 3,
+          "best_wssse": 0.075,
+          "results_by_k": {
+            "2": {
+              "wssse": 0.12,
+              "train_time_sec": 2.848
+            },
+            "3": {
+              "wssse": 0.075,
+              "train_time_sec": 0.927
+            }
+          },
+          "cluster_distribution": {
+            "2": 1,
+            "0": 2,
+            "1": 3
+          },
+          "cluster_centers": [
+            [
+              0.05,
+              0.05,
+              0.05
+            ],
+            [
+              9.1,
+              9.1,
+              9.1
+            ],
+            [
+              0.2,
+              0.2,
+              0.2
+            ]
+          ],
+          "load_time_sec": 0.252
+        },
+        "topic_modeling": {
+          "task": "topic_modeling",
+          "model": "LDA",
+          "num_documents": 12,
+          "vocabulary_size": 11,
+          "k_values_tested": [
+            5,
+            10
+          ],
+          "results_by_k": {
+            "5": {
+              "perplexity": 2.7819,
+              "log_likelihood": -723.292,
+              "train_time_sec": 1.343
+            },
+            "10": {
+              "perplexity": 3.0992,
+              "log_likelihood": -805.779,
+              "train_time_sec": 0.744
+            }
+          },
+          "final_model_k": 10,
+          "final_perplexity": 3.0992,
+          "topics_sample": [
+            {
+              "topic_id": 0,
+              "term_indices": [
+                0,
+                7,
+                8
+              ],
+              "term_weights": [
+                0.102,
+                0.0999,
+                0.0973
+              ]
+            },
+            {
+              "topic_id": 1,
+              "term_indices": [
+                1,
+                9,
+                4
+              ],
+              "term_weights": [
+                0.2481,
+                0.2192,
+                0.102
+              ]
+            },
+            {
+              "topic_id": 2,
+              "term_indices": [
+                0,
+                4,
+                7
+              ],
+              "term_weights": [
+                0.1119,
+                0.0994,
+                0.0964
+              ]
+            }
+          ],
+          "load_time_sec": 0.309
+        }
+      }
+    }
+  ],
+  "last_run": {
+    "timestamp": "2025-12-25T02:49:16.402816",
+    "tasks": {
+      "regression": {
+        "task": "regression",
+        "model": "LinearRegression",
+        "num_samples": 100,
+        "train_samples": 83,
+        "test_samples": 17,
+        "num_features": 692,
+        "max_iter": 100,
+        "mse": 0.0679,
+        "rmse": 0.2606,
+        "mae": 0.1733,
+        "r2": 0.7274,
+        "intercept": 0.7014,
+        "coefficients_sample": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "load_time_sec": 8.976,
+        "train_time_sec": 5.014
+      },
+      "classification": {
+        "task": "classification",
+        "model": "LogisticRegression",
+        "num_samples": 100,
+        "train_samples": 83,
+        "test_samples": 17,
+        "max_iter": 100,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "auc_roc": 1.0,
+        "load_time_sec": 0.521,
+        "train_time_sec": 2.959
+      },
+      "clustering": {
+        "task": "clustering",
+        "model": "KMeans",
+        "num_samples": 6,
+        "k_values_tested": [
+          2,
+          3
+        ],
+        "best_k": 3,
+        "best_wssse": 0.075,
+        "results_by_k": {
+          "2": {
+            "wssse": 0.12,
+            "train_time_sec": 2.848
+          },
+          "3": {
+            "wssse": 0.075,
+            "train_time_sec": 0.927
+          }
+        },
+        "cluster_distribution": {
+          "2": 1,
+          "0": 2,
+          "1": 3
+        },
+        "cluster_centers": [
+          [
+            0.05,
+            0.05,
+            0.05
+          ],
+          [
+            9.1,
+            9.1,
+            9.1
+          ],
+          [
+            0.2,
+            0.2,
+            0.2
+          ]
+        ],
+        "load_time_sec": 0.252
+      },
+      "topic_modeling": {
+        "task": "topic_modeling",
+        "model": "LDA",
+        "num_documents": 12,
+        "vocabulary_size": 11,
+        "k_values_tested": [
+          5,
+          10
+        ],
+        "results_by_k": {
+          "5": {
+            "perplexity": 2.7819,
+            "log_likelihood": -723.292,
+            "train_time_sec": 1.343
+          },
+          "10": {
+            "perplexity": 3.0992,
+            "log_likelihood": -805.779,
+            "train_time_sec": 0.744
+          }
+        },
+        "final_model_k": 10,
+        "final_perplexity": 3.0992,
+        "topics_sample": [
+          {
+            "topic_id": 0,
+            "term_indices": [
+              0,
+              7,
+              8
+            ],
+            "term_weights": [
+              0.102,
+              0.0999,
+              0.0973
+            ]
+          },
+          {
+            "topic_id": 1,
+            "term_indices": [
+              1,
+              9,
+              4
+            ],
+            "term_weights": [
+              0.2481,
+              0.2192,
+              0.102
+            ]
+          },
+          {
+            "topic_id": 2,
+            "term_indices": [
+              0,
+              4,
+              7
+            ],
+            "term_weights": [
+              0.1119,
+              0.0994,
+              0.0964
+            ]
+          }
+        ],
+        "load_time_sec": 0.309
+      }
+    }
+  }
+}
