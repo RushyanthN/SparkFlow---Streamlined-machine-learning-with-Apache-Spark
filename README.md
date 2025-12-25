@@ -1,59 +1,56 @@
 # Spark ML Project
 
-A comprehensive Apache Spark Machine Learning project demonstrating various ML algorithms and techniques using PySpark.
+A comprehensive Apache Spark Machine Learning project demonstrating various ML algorithms and techniques using PySpark with a unified CLI runner and automated metrics logging.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Quick Start](#quick-start)
+- [CLI Usage](#cli-usage)
+- [Algorithms & Results](#algorithms--results)
+- [Metrics Output](#metrics-output)
 - [Data](#data)
-- [Algorithms Implemented](#algorithms-implemented)
-- [Results](#results)
-- [Contributing](#contributing)
+- [Documentation](#documentation)
 
+## Overview
 
-## 🔍 Overview
+This project showcases machine learning implementations using Apache Spark ML, featuring:
 
-This project showcases machine learning implementations using Apache Spark and PySpark, including:
-
-- **Regression Analysis**: Linear regression for fare prediction
-- **Classification**: Logistic regression and SVM
-- **Clustering**: K-means clustering
+- **Regression Analysis**: Linear Regression with R² evaluation
+- **Classification**: Logistic Regression with full metrics suite
+- **Clustering**: K-Means with WSSSE optimization
 - **Topic Modeling**: Latent Dirichlet Allocation (LDA)
-- **Performance Analysis**: Spark performance benchmarking
+- **MLOps**: CLI runner with automated JSON metrics logging
 
-## ✨ Features
+## Features
 
+- **One-Command Runner**: Execute any ML task with `python main.py --task <task>`
+- **Automated Metrics Logging**: All results saved to `results/metrics.json`
 - **Multiple ML Algorithms**: Regression, classification, clustering, and topic modeling
-- **Real-world Dataset**: NYC taxi fare prediction with comprehensive data analysis
-- **Performance Benchmarking**: Comparative analysis of different models
-- **Data Preprocessing**: Outlier detection, feature engineering, and data cleaning
-- **Visualization**: Performance plots and data analysis charts
+- **Hyperparameter Comparison**: Automatic comparison across different parameter values
+- **Experiment Tracking**: Timestamped run history with full metrics
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 spark_ml/
+├── main.py                 # CLI runner (main entry point)
 ├── README.md
 ├── requirements.txt
-├── .gitignore
 ├── data/
 │   ├── raw/
-│   │   ├── Indy_rainfall.csv
-│   │   ├── kmeans_data.txt
-│   │   ├── linearReg_data.txt
-│   │   ├── logistic_data.txt
+│   │   ├── sample_libsvm_data.txt
 │   │   ├── sample_kmeans_data.txt
 │   │   ├── sample_lda_libsvm_data.txt
-│   │   ├── sample_libsvm_data.txt
-│   │   └── svm_data.txt
+│   │   ├── linearReg_data.txt
+│   │   └── ...
 │   └── processed/
 ├── notebooks/
-│   └── Spark_ML.ipynb
+│   └── Spark_ML.ipynb      # Interactive notebook
 ├── src/
 │   ├── __init__.py
 │   ├── data_preprocessing.py
@@ -61,21 +58,21 @@ spark_ml/
 │   ├── classification.py
 │   ├── clustering.py
 │   └── topic_modeling.py
-├── docs/
-│   ├── setup_guide.md
-│   └── algorithm_explanations.md
-└── results/
-    └── spark_performance.png
+├── results/
+│   └── metrics.json        # Auto-generated metrics
+└── docs/
+    ├── setup_guide.md
+    └── algorithm_explanations.md
 ```
 
-## 🛠 Prerequisites
+## Prerequisites
 
 - Python 3.7+
-- Java 8 or 11
-- Apache Spark 3.2.0
-- Jupyter Notebook (for interactive analysis)
+- Java 8, 11, or 17
+- Apache Spark 3.x
+- PySpark
 
-## 📦 Installation
+## Installation
 
 1. **Clone the repository**
    ```bash
@@ -83,134 +80,215 @@ spark_ml/
    cd spark_ml
    ```
 
-2. **Install Java (if not already installed)**
-   ```bash
-   # Ubuntu/Debian
-   sudo apt-get install openjdk-8-jdk-headless
-   
-   # macOS
-   brew install openjdk@8
-   
-   # Windows
-   # Download and install from Oracle or OpenJDK
-   ```
-
-3. **Install Python dependencies**
+2. **Install Python dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Set up Spark environment**
+3. **Verify Java installation**
    ```bash
-   # Download and extract Spark
-   wget https://archive.apache.org/dist/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz
-   tar xf spark-3.2.0-bin-hadoop3.2.tgz
-   
-   # Set environment variables
-   export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-   export SPARK_HOME=spark-3.2.0-bin-hadoop3.2
-   export PATH=$PATH:$SPARK_HOME/bin
+   java -version
    ```
 
-## 🚀 Usage
+## Quick Start
 
-### Running the Jupyter Notebook
+Run all ML tasks with a single command:
+
+```bash
+python main.py --task all
+```
+
+This will execute regression, classification, clustering, and topic modeling, then save all metrics to `results/metrics.json`.
+
+## CLI Usage
+
+### Available Commands
+
+```bash
+# Run individual tasks
+python main.py --task regression
+python main.py --task classification
+python main.py --task clustering
+python main.py --task topic_modeling
+
+# Run all tasks
+python main.py --task all
+
+# Run without saving metrics
+python main.py --task classification --no-save
+```
+
+### Command Line Options
+
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--task` | `-t` | ML task to run: `regression`, `classification`, `clustering`, `topic_modeling`, `all` |
+| `--no-save` | | Skip saving metrics to JSON file |
+
+### Example Output
+
+```
+============================================================
+         SPARK ML PROJECT - CLI RUNNER
+============================================================
+  Task:      all
+  Timestamp: 2025-12-25 02:49:09
+============================================================
+
+[*] Running ALL tasks...
+
+============================================================
+REGRESSION TASK: Linear Regression
+============================================================
+[1/5] Loading data...
+[2/5] Splitting data (80/20)...
+[3/5] Training Linear Regression model...
+[4/5] Generating predictions...
+[5/5] Calculating metrics...
+
+----------------------------------------
+REGRESSION RESULTS:
+----------------------------------------
+  MSE:        0.0679
+  RMSE:       0.2606
+  R²:         0.7274
+
+... (continues for other tasks)
+
+[OK] Metrics saved to results/metrics.json
+```
+
+## Algorithms & Results
+
+### 1. Linear Regression
+
+| Metric | Value |
+|--------|-------|
+| MSE | 0.0679 |
+| RMSE | 0.2606 |
+| MAE | 0.1733 |
+| R² | 0.7274 |
+| Features | 692 |
+| Train/Test Split | 80/20 |
+
+### 2. Logistic Regression (Classification)
+
+| Metric | Value |
+|--------|-------|
+| Accuracy | 100% |
+| Precision | 1.0 |
+| Recall | 1.0 |
+| F1-Score | 1.0 |
+| AUC-ROC | 1.0 |
+| Samples | 100 |
+
+### 3. K-Means Clustering
+
+| Metric | Value |
+|--------|-------|
+| Best k | 3 |
+| WSSSE (k=2) | 0.12 |
+| WSSSE (k=3) | 0.075 |
+| Improvement | 37.5% |
+
+### 4. LDA Topic Modeling
+
+| Metric | Value |
+|--------|-------|
+| Documents | 12 |
+| Vocabulary Size | 11 |
+| Topics (k) | 10 |
+| Perplexity (k=5) | 2.78 |
+| Perplexity (k=10) | 3.10 |
+
+## Metrics Output
+
+All metrics are automatically saved to `results/metrics.json`:
+
+```json
+{
+  "runs": [...],
+  "last_run": {
+    "timestamp": "2025-12-25T02:49:16",
+    "tasks": {
+      "regression": {
+        "model": "LinearRegression",
+        "mse": 0.0679,
+        "rmse": 0.2606,
+        "r2": 0.7274,
+        "train_time_sec": 5.014
+      },
+      "classification": {
+        "model": "LogisticRegression",
+        "accuracy": 1.0,
+        "f1_score": 1.0,
+        "auc_roc": 1.0
+      },
+      "clustering": {
+        "model": "KMeans",
+        "best_k": 3,
+        "best_wssse": 0.075
+      },
+      "topic_modeling": {
+        "model": "LDA",
+        "final_perplexity": 3.0992
+      }
+    }
+  }
+}
+```
+
+## Data
+
+The project uses LIBSVM format datasets located in `data/raw/`:
+
+| File | Description | Samples |
+|------|-------------|---------|
+| `sample_libsvm_data.txt` | Classification/Regression | 100 |
+| `sample_kmeans_data.txt` | Clustering | 6 |
+| `sample_lda_libsvm_data.txt` | Topic Modeling | 12 |
+
+## Interactive Notebook
+
+For exploratory analysis, use the Jupyter notebook:
 
 ```bash
 jupyter notebook notebooks/Spark_ML.ipynb
 ```
 
-### Running Python Scripts
+## Configuration
 
-```bash
-# Run regression analysis
-python src/regression.py
-
-# Run classification
-python src/classification.py
-
-# Run clustering
-python src/clustering.py
-```
-
-### Interactive Spark Session
+Key Spark configurations used:
 
 ```python
-from pyspark.sql import SparkSession
-import findspark
-
-findspark.init()
-spark = SparkSession.builder.master("local[*]").getOrCreate()
+spark = SparkSession.builder \
+    .appName("SparkML") \
+    .master("local[1]") \
+    .config("spark.driver.memory", "2g") \
+    .config("spark.sql.shuffle.partitions", "2") \
+    .getOrCreate()
 ```
 
-## 📊 Data
-
-The project uses several datasets:
-
-- **NYC Taxi Data**: For fare prediction and analysis
-- **Sample Datasets**: Various ML algorithm demonstrations
-- **Rainfall Data**: Environmental data analysis
-
-All data files are located in the `data/raw/` directory.
-
-## 🤖 Algorithms Implemented
-
-### 1. Linear Regression
-- **Purpose**: Fare prediction based on distance and duration
-- **Features**: Distance, duration, time of day
-- **Performance**: R² score evaluation
-
-### 2. Logistic Regression
-- **Purpose**: Binary classification
-- **Features**: Multi-dimensional feature vectors
-- **Evaluation**: Training error analysis
-
-### 3. K-means Clustering
-- **Purpose**: Data clustering and pattern recognition
-- **Parameters**: Configurable number of clusters
-- **Visualization**: Cluster center analysis
-
-### 4. Latent Dirichlet Allocation (LDA)
-- **Purpose**: Topic modeling and text analysis
-- **Parameters**: Number of topics, iterations
-- **Output**: Topic distributions and term weights
-
-## 📈 Results
-
-The project includes performance analysis comparing different models:
-
-- **Model M1**: Distance-based fare prediction
-- **Model M2**: Distance + duration-based prediction
-- **Performance Metrics**: R² score, execution time analysis
-- **Visualization**: Performance comparison charts
-
-## 🔧 Configuration
-
-Key configuration parameters:
-
-```python
-# Spark Configuration
-spark.conf.set("spark.sql.legacy.timeParserPolicy", "LEGACY")
-
-# Model Parameters
-NUM_SAMPLES = 1000000  # For Monte Carlo simulation
-K_CLUSTERS = 2         # For K-means
-LDA_TOPICS = 10        # For topic modeling
-```
-
-## 📚 Documentation
+## Documentation
 
 - **Setup Guide**: `docs/setup_guide.md`
 - **Algorithm Explanations**: `docs/algorithm_explanations.md`
-- **API Reference**: Inline code documentation
 
-## 🤝 Contributing
+## Technologies Used
+
+- **Apache Spark 3.x** - Distributed computing framework
+- **PySpark ML** - Machine learning library
+- **Python 3.7+** - Programming language
+- **LIBSVM** - Data format for ML
+
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
 5. Open a Pull Request
+
 ---
 
-**Note**: This project is for educational purposes and demonstrates various machine learning techniques using Apache Spark.
+**Note**: This project demonstrates distributed machine learning techniques using Apache Spark for educational purposes.
